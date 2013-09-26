@@ -15,11 +15,11 @@
           $p.html('');
 
           var index = streams.home.length - 1;
-          var limit = index - 15; // this limits number of tweets displayed to 15 max
+          var limit = index - 15; // limits number of tweets displayed to 15
           while(index >= limit){
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
-            var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
+            var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes(); // variable to store time in simpler format
             $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($p);
             index -= 1;
