@@ -6,20 +6,21 @@
   </head>
   <body>
     <button type="button">Refresh</button>
-    <p>What is this crap?</p>
+    <p>Click Refresh to update tweets</p>
     <script>
 
       $(document).ready(function(){
         $('button').on('click', function(){
-          var $body = $('body');
-          $body.html('');
+          var $p = $('p');
+          $p.html('');
 
           var index = streams.home.length - 1;
-          while(index >= 0){
+          var limit = index - 15; // this limits number of tweets displayed to 15 max
+          while(index >= limit){
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
             $tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.appendTo($body);
+            $tweet.appendTo($p);
             index -= 1;
           }
         });
