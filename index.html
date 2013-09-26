@@ -19,7 +19,10 @@
           while(index >= limit){
             var tweet = streams.home[index];
             var $tweet = $('<div></div>');
-            var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes(); // variable to store time in simpler format
+            var minutes = tweet.created_at.getMinutes();        // These 3 lines create ensure that times between XX:00 and XX:09 have leading zeroes
+            if(minutes.length == 0) {minutes = "00";}           //
+            if(minutes.length == 1) {minutes = "0" + minutes;}  //
+            var createTime = tweet.created_at.getHours() + ":" + minutes; // variable to store time in simpler format
             $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($p);
             index -= 1;
