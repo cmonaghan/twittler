@@ -7,13 +7,13 @@
   <body>
     <button type="button">Refresh</button>
     <p>Click Refresh to update tweets</p>
-    <p id="tweets">Tweets will go here</p>
+    <p class="tweets">Tweets will go here</p>
     <script>
 
       $(document).ready(function(){
         // This refreshes all tweets
         $('button').on('click', function(){
-          var $tweetDisplay = $('#tweets');
+          var $tweetDisplay = $('.tweets');
           $tweetDisplay.html('');
 
           var index = streams.home.length - 1;
@@ -25,13 +25,26 @@
             // NOTE: times between XX:00 and XX:09 currently read as XX:0 or XX:9 - This must be fixed
             var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
             $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
-            $tweet.appendTo($('#tweets'));
+            $tweet.appendTo($('.tweets'));
             index -= 1;
           }
         });
         
-        $('#tweets').on('click', '#shawndrost', function(){
-          alert('You clicked on #shawndrost');
+        $('.tweets').on('click', '#shawndrost', function(){
+          //alert('You clicked on #shawndrost');
+
+          var index = streams.users.shawndrost.length - 1;
+          var limit = 0;
+          while(index >= limit){
+            var tweet = streams.users.shawndrost[index];
+            var $tweet = $('<div></div>');
+            // createTime variable stores time in a readable format
+            // NOTE: times between XX:00 and XX:09 currently read as XX:0 or XX:9 - This must be fixed
+            var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
+            $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
+            $tweet.after($('#shawndrost'));
+            index -= 1;
+          }
         });
       });
 
