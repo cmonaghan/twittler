@@ -20,7 +20,7 @@
           var limit = index - 15; // limits number of tweets displayed to 15
           while(index >= limit){
             var tweet = streams.home[index];
-            var $tweet = $('<div id=' + tweet.user + '></div>');
+            var $tweet = $('<div class=' + tweet.user + '></div>');
             // createTime variable stores time in a readable format
             // NOTE: times between XX:00 and XX:09 currently read as XX:0 or XX:9 - This must be fixed
             var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
@@ -30,21 +30,10 @@
           }
         });
         
-        $('.tweets').on('click', '#shawndrost', function(){
+        $('.tweets').on('click', '.shawndrost', function(){
           //alert('You clicked on #shawndrost');
-
-          var index = streams.users.shawndrost.length - 1;
-          var limit = 0;
-          while(index >= limit){
-            var tweet = streams.users.shawndrost[index];
-            var $tweet = $('<div></div>');
-            // createTime variable stores time in a readable format
-            // NOTE: times between XX:00 and XX:09 currently read as XX:0 or XX:9 - This must be fixed
-            var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
-            $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
-            $tweet.after($('#shawndrost'));
-            index -= 1;
-          }
+          var testFeed = '<div>tweet 1</div>';
+          $(this).append(testFeed);
         });
       });
 
