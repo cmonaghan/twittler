@@ -21,26 +21,26 @@
           
           // iterates through all tweets from home stream
           var index = streams.home.length - 1;
-          var limit = index - 15; // limits number of tweets displayed to 1
-          while(index >= limit){
+          var limit = index - 15; // limits number of tweets displayed to 15
+          while(index > limit){
             var tweet = streams.home[index];
             var $tweet = $('<div class=' + tweet.user + '></div>');
-            //var testFeed = '<ul class=\'hiddenTweets\'><li>tweet 1</li></ul>';  
             // createTime variable stores time in a readable format
             // NOTE: times between XX:00 and XX:09 currently read as XX:0 or XX:9 - This must be fixed
             var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
             $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($('.tweets'));
-            //$tweet.append(testFeed);
             index -= 1;
           }
 
-          // iterates through each user's tweet history to create a hidden feed
+          // iterates through each user's tweet history to create a hidden user feed
+          // NOTE: if clicked too soon creates no user tweets at all, need to debug 
+          // (I think it needs an event handler so to wait until the home stream is loaded)
           var index = streams.users.shawndrost.length - 1;
-          var limit = index - 5; // limits number of user tweets displayed to 5
-          while(index >= limit && index >= 0){
+          var limit = index - 5; // limits user tweets to 5 displayed
+          while(index > limit){
             var tweet = streams.users.shawndrost[index];
-            var $tweet = $('<ul class=\'hiddenTweets\'><li>tweet 1</li></ul>');
+            var $tweet = $('<ul class=\'hiddenTweets\'><li></li></ul>');
             $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
             $('.shawndrost').append($tweet);
             index -= 1;
