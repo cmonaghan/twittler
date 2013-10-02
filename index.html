@@ -21,7 +21,7 @@
           
           // iterates through all tweets from home stream
           var index = streams.home.length - 1;
-          var limit = index - 15; // limits number of tweets displayed to 15
+          var limit = 0; // can make 'var limit = index - 15;' to limit tweets to 15, but occasionally causes hidden user feed to break
           while(index > limit){
             var tweet = streams.home[index];
             var $tweet = $('<div class=' + tweet.user + '></div>');
@@ -34,23 +34,21 @@
           }
 
           // iterates through each user's tweet history to create a hidden user feed
-          // NOTE: if clicked too soon creates no user tweets at all, need to debug 
-          // (I think it needs an event handler so to wait until the home stream is loaded)
-          var index = streams.users.shawndrost.length - 1;
-          var limit = index - 5; // limits user tweets to 5 displayed
-          while(index > limit){
-            var tweet = streams.users.shawndrost[index];
-            var $tweet = $('<ul class=\'hiddenTweets\'><li></li></ul>');
-            $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
-            $('.shawndrost').append($tweet);
-            index -= 1;
-          }
-
+          var userTweets = function() {
+            var index = streams.users.shawndrost.length - 1;
+            var limit = index - 5; // limits user tweets displayed to 5
+            while(index > limit){
+              var tweet = streams.users.shawndrost[index];
+              var $tweet = $('<ul class=\'hiddenTweets\'><li></li></ul>');
+              $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
+              $('.' + tweet.user).append($tweet);
+              index -= 1;
+            }
+          };
+          userTweets();
         });
         
         $('.tweets').on('click', '.shawndrost', function(){
-          //alert('You clicked on #shawndrost');
-
           $(this).find('ul').slideToggle('hiddenTweets');
         });
       });
