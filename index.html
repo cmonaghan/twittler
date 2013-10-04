@@ -46,15 +46,24 @@
               index -= 1;
             }
           };
+          
           //calls the userTweets function for each user
           for (var username in streams.users) {
             userTweets(streams.users[username]);
           }
         });
         
-        $('.tweets').on('click', '.shawndrost', function(){
-          $(this).find('ul').slideToggle('hiddenTweets');
-        });
+        // Adds ability for user's tweet history to slide down when clicked
+        var slide = function(username) {
+          $('.tweets').on('click', username, function(){
+            $(this).find('ul').slideToggle('hiddenTweets');
+          });
+        };
+        
+        // calls the slide function for each user
+        for(var username in streams.users) {
+          slide('.' + username);
+        }
       });
 
     </script>
