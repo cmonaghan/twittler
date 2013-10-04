@@ -34,18 +34,22 @@
           }
 
           // iterates through each user's tweet history to create a hidden user feed
-          var userTweets = function() {
-            var index = streams.users.shawndrost.length - 1;
-            var limit = index - 5; // limits user tweets displayed to 5
+          // Note: Doesn't always work immediately, or works for some users but not others; must debug
+          var userTweets = function(userObj) {
+            var index = userObj.length - 1;
+            var limit = 0; // can make 'var limit = index - 5;' to limit user tweets to 5, but this causes hidden user feed to break
             while(index > limit){
-              var tweet = streams.users.shawndrost[index];
+              var tweet = userObj[index];
               var $tweet = $('<ul class=\'hiddenTweets\'><li></li></ul>');
               $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
               $('.' + tweet.user).append($tweet);
               index -= 1;
             }
           };
-          userTweets();
+          //calls the userTweets function for each user
+          for (var username in streams.users) {
+            userTweets(streams.users[username]);
+          }
         });
         
         $('.tweets').on('click', '.shawndrost', function(){
