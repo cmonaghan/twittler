@@ -3,6 +3,7 @@
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="moment.js"></script>
     <style>
       .hiddenTweets {display: none;}
     </style>
@@ -25,9 +26,8 @@
           while(index > limit){
             var tweet = streams.home[index];
             var $tweet = $('<div class=' + tweet.user + '></div>');
-            // createTime variable stores time in a readable format
-            // NOTE: times between XX:00 and XX:09 currently read as XX:0 or XX:9 - This must be fixed
-            var createTime = tweet.created_at.getHours() + ":" + tweet.created_at.getMinutes();
+            // createTime variable stores time in a human-friendly format (ie- '45 minutes ago')
+            var createTime = moment(tweet.created_at).fromNow();
             $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($('.tweets'));
             index -= 1;
@@ -41,6 +41,8 @@
             while(index > limit){
               var tweet = userObj[index];
               var $tweet = $('<ul class=\'hiddenTweets\'><li></li></ul>');
+              // createTime variable stores time in a human-friendly format (ie- '45 minutes ago')
+              var createTime = moment(tweet.created_at).fromNow();
               $tweet.text(createTime + ' @' + tweet.user + ': ' + tweet.message);
               $('.' + tweet.user).append($tweet);
               index -= 1;
