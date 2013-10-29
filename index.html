@@ -7,11 +7,14 @@
     <style>
       .hiddenTweets {display: none;}
     </style>
+    <link rel="stylesheet" href="stylesheet.css">
   </head>
   <body>
-    <button type="button">Refresh</button>
-    <p>Click Refresh to update tweets</p>
-    <p class="tweets">Tweets will go here</p>
+    <header>
+      <h1>Christian's Magical Tweet Machine</h1>
+    </header>
+    <button type="button">Show me some tweets!</button>
+    <p class="tweets"></p>
     <script>
 
       $(document).ready(function(){
@@ -22,7 +25,7 @@
           
           // iterates through all tweets from home stream
           var index = streams.home.length - 1;
-          var limit = index - 15; // NOTE: this occasionally causes hidden user feed to not function for first few seconds after page load
+          var limit = 0;
           while(index > limit){
             var tweet = streams.home[index];
             var $tweet = $('<div class=' + tweet.user + '></div>');
@@ -37,7 +40,7 @@
           // Note: Doesn't always work immediately, or works for some users but not others; must debug
           var userTweets = function(userObj) {
             var index = userObj.length - 1;
-            var limit = index - 5; // NOTE: this causes hidden user feed to not function for first few seconds after page load
+            var limit = 0;
             while(index > limit){
               var tweet = userObj[index];
               var $tweet = $('<ul class=\'hiddenTweets\'><li></li></ul>');
